@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard – SkillConnect</title><link rel="stylesheet" href="auth.css"></head>
+<body><div class="box wide">
+<div class="top"><a class="logo" href="index.html">Skill<span>Connect</span></a><button class="btn alt small" id="out">Log out</button></div>
+<div class="card"><h1 id="who">Loading…</h1><p class="muted"><span id="role"></span> · <span id="email"></span></p>
+ <h2 id="title">Your session requests</h2><div id="list"></div>
+ <a class="btn small" href="index.html#tutors" style="text-decoration:none;display:inline-block">Browse tutors</a></div>
+</div>
+<script>
+function el(t,x,c){var e=document.createElement(t);if(x!=null)e.textContent=x;if(c)e.className=c;return e}
+function api(u,o){return fetch(u,o).then(function(r){return r.json().then(function(j){return{ok:r.ok,data:j}})})}
+api("/api/me").then(function(r){
+ if(!r.ok){location.href="login.html";return}
+ var u=r.data,t=u.role==="tutor";
+ document.getElementById("who").textContent="Welcome, "+u.name;
+ document.getElementById("role").textContent=t?"Tutor account":"Learner account";
+ document.getElementById("email").textContent=u.email;
+ document.getElementById("title").textContent=t?"Session requests from learners":"Your session requests";
+ load(u)}).catch(function(){document.getElementById("who").textContent="Server not reachable"});
+function load(u){api("/api/bookings").then(function(r){
+ var box=document.getElementById("list");box.textContent="";
+ if(!r.data.length){box.appendChild(el("p","Nothing here yet."+(u.role==="learner"?" Request a session from the tutors list.":""),"muted"));return}
+ r.data.slice().reverse().forEach(function(b){
+  var c=el("div",null,"item"),l=el("div"),right=el("div",null,"right");
+  l.appendChild(el("b",b.skill+" with "+b.tutorName));
+  l.appendChild(el("div",(u.role==="tutor"?"Learner: "+b.learnerName+" · ":"")+"\u20b9"+b.rate+"/hr · "+new Date(b.createdAt).toLocaleDateString("en-IN"),"muted"));
+  right.appendChild(el("span",b.status,"tag "+b.status));
+  if(u.role==="tutor"&&b.status==="pending")["accepted","declined"].forEach(function(s){
+   var bt=el("button",s==="accepted"?"Accept":"Decline","btn small");
+   bt.onclick=function(){api("/api/bookings/"+b.id,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({status:s})}).then(function(){load(u)})};
+   right.appendChild(bt)});
+  c.appendChild(l);c.appendChild(right);box.appendChild(c)})})}
+document.getElementById("out").onclick=function(){api("/api/logout",{method:"POST"}).then(function(){location.href="login.html"})};
+</script></body></html>

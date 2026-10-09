@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Log in – SkillConnect</title><link rel="stylesheet" href="auth.css"></head>
+<body><div class="box">
+<a class="logo" href="index.html">Skill<span>Connect</span></a>
+<div class="card">
+ <div class="tabs"><button type="button" class="btn" id="t1">Log in</button><button type="button" class="btn alt" id="t2">Sign up</button></div>
+ <h1 id="h" style="margin-top:16px">Welcome back</h1>
+ <p class="muted" id="sub">Log in to request or manage sessions.</p>
+ <form id="f">
+  <div id="reg" hidden style="display:none;gap:10px">
+   <input id="name" placeholder="Full name" autocomplete="name" maxlength="60">
+   <select id="role"><option value="learner">I want to learn</option><option value="tutor">I want to teach</option></select>
+  </div>
+  <input id="email" type="email" placeholder="Email" autocomplete="email" required>
+  <input id="pw" type="password" placeholder="Password (8+ characters)" autocomplete="current-password" minlength="8" required>
+  <div id="msg" role="alert"></div>
+  <button class="btn" id="go">Log in</button>
+ </form>
+ <div class="demo"><b>Demo accounts</b> (tap to fill)<br>
+  <button type="button" class="btn alt small" data-e="learner@skillconnect.in" data-p="Learner@123">Learner</button>
+  <button type="button" class="btn alt small" data-e="tutor@skillconnect.in" data-p="Tutor@123">Tutor</button></div>
+</div></div>
+<script>
+var mode="login",$=function(i){return document.getElementById(i)};
+function setMode(m){mode=m;var r=m==="register";
+ $("reg").style.display=r?"grid":"none";$("name").required=r;
+ $("t1").className="btn"+(r?" alt":"");$("t2").className="btn"+(r?"":" alt");
+ $("h").textContent=r?"Create your account":"Welcome back";
+ $("go").textContent=r?"Sign up":"Log in";$("msg").textContent="";
+ $("pw").autocomplete=r?"new-password":"current-password"}
+$("t1").onclick=function(){setMode("login")};$("t2").onclick=function(){setMode("register")};
+document.querySelectorAll(".demo button").forEach(function(b){b.onclick=function(){setMode("login");$("email").value=b.dataset.e;$("pw").value=b.dataset.p}});
+$("f").onsubmit=function(e){e.preventDefault();$("msg").textContent="";
+ var d={email:$("email").value,password:$("pw").value};
+ if(mode==="register"){d.name=$("name").value;d.role=$("role").value}
+ fetch("/api/"+mode,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)})
+ .then(function(r){return r.json().then(function(j){if(r.ok)location.href="dashboard.html";else $("msg").textContent=j.error||"Something went wrong"})})
+ .catch(function(){$("msg").textContent="Cannot reach the server. Start it with: node server.js"})};
+</script></body></html>

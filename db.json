@@ -1,0 +1,102 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Riya Singh",
+      "email": "learner@skillconnect.in",
+      "role": "learner",
+      "password": "a7f1620748283fa0200904f8c9afaf12:dd3797b1c781e9948b5dcac6a93287ac8c3c7e28d555842ce1edfa9c8f5523f792f18046ccfb14d1c572ee578b32bad59154f948acf241a82de22daa9eb94e8d"
+    },
+    {
+      "id": 2,
+      "name": "Arjun Mehta",
+      "email": "tutor@skillconnect.in",
+      "role": "tutor",
+      "tutorId": 2,
+      "password": "486e761944d5833531a7ac7ad92f49a1:b3e551c78f57d31b40f15f16eb47789858ff19d2dbe75e0c7cd18a1ec6540086dc2feb076b1ff3e7aea8b9aadb2a8c0efc80147cf2f85d6d8fece41df2afcd7b"
+    }
+  ],
+  "tutors": [
+    {
+      "id": 1,
+      "name": "Sofia Alvarez",
+      "skill": "Spanish conversation",
+      "cat": "Languages",
+      "rate": 600,
+      "rating": 4.9,
+      "langs": "Spanish, English",
+      "color": "#e0527a"
+    },
+    {
+      "id": 2,
+      "name": "Arjun Mehta",
+      "skill": "Python for beginners",
+      "cat": "Coding",
+      "rate": 750,
+      "rating": 4.8,
+      "langs": "English, Hindi",
+      "color": "#2f80ed"
+    },
+    {
+      "id": 3,
+      "name": "Meera Iyer",
+      "skill": "Hindustani vocals",
+      "cat": "Music",
+      "rate": 700,
+      "rating": 4.9,
+      "langs": "Hindi, English",
+      "color": "#9b51e0"
+    },
+    {
+      "id": 4,
+      "name": "Daniel Kim",
+      "skill": "Business English",
+      "cat": "Languages",
+      "rate": 900,
+      "rating": 4.7,
+      "langs": "English, Korean",
+      "color": "#27ae60"
+    },
+    {
+      "id": 5,
+      "name": "Priya Sharma",
+      "skill": "Class 12 Physics",
+      "cat": "Academics",
+      "rate": 500,
+      "rating": 4.8,
+      "langs": "Hindi, English",
+      "color": "#f2994a"
+    },
+    {
+      "id": 6,
+      "name": "Marco Rossi",
+      "skill": "Italian cooking",
+      "cat": "Cooking",
+      "rate": 1000,
+      "rating": 4.9,
+      "langs": "Italian, English",
+      "color": "#eb5757"
+    },
+    {
+      "id": 7,
+      "name": "Ananya Das",
+      "skill": "UI/UX design basics",
+      "cat": "Art & Design",
+      "rate": 800,
+      "rating": 4.6,
+      "langs": "English, Bengali",
+      "color": "#00a6a6"
+    },
+    {
+      "id": 8,
+      "name": "Rahul Verma",
+      "skill": "Strength and mobility",
+      "cat": "Fitness",
+      "rate": 650,
+      "rating": 4.7,
+      "langs": "Hindi, English",
+      "color": "#4f46e5"
+    }
+  ],
+  "bookings": []
+}
